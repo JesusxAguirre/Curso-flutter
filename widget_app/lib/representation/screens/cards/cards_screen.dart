@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
 const cards = <Map<String, dynamic>>[
-  {'elevation': 0.0, 'label': 'elevation 0'},
-  {'elevation': 1.0, 'label': 'elevation 1'},
-  {'elevation': 2.0, 'label': 'elevation 2'},
-  {'elevation': 3.0, 'label': 'elevation 3'},
-  {'elevation': 4.0, 'label': 'elevation 4'},
-  {'elevation': 5.0, 'label': 'elevation 5'},
+  {'elevation': 0.0, 'label': 'Elevation 0'},
+  {'elevation': 1.0, 'label': 'Elevation 1'},
+  {'elevation': 2.0, 'label': 'Elevation 2'},
+  {'elevation': 3.0, 'label': 'Elevation 3'},
+  {'elevation': 4.0, 'label': 'Elevation 4'},
+  {'elevation': 5.0, 'label': 'Elevation 5'},
 ];
 
 class CardsScreen extends StatelessWidget {
@@ -37,6 +37,29 @@ class _CardsView extends StatelessWidget {
               elevation: cardData['elevation'],
             ),
           ),
+
+          ...cards.map(
+            (cardData) => _CardType2(
+              label: cardData['label'],
+              elevation: cardData['elevation'],
+            ),
+          ),
+
+          ...cards.map(
+            (cardData) => _CardType3(
+              label: cardData['label'],
+              elevation: cardData['elevation'],
+            ),
+          ),
+
+          ...cards.map(
+            (cardData) => _CardType4(
+              label: cardData['label'],
+              elevation: cardData['elevation'],
+            ),
+          ),
+
+          const SizedBox(height: 50),
         ],
       ),
     );
@@ -61,8 +84,111 @@ class _CardType1 extends StatelessWidget {
               alignment: Alignment.topRight,
               child: IconButton(icon: Icon(Icons.more_vert), onPressed: () {}),
             ),
+
+            Align(alignment: Alignment.bottomLeft, child: Text(label)),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class _CardType2 extends StatelessWidget {
+  final String label;
+  final double elevation;
+
+  const _CardType2({required this.label, required this.elevation});
+
+  @override
+  Widget build(BuildContext context) {
+    return Card.outlined(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10),
+        side: BorderSide(color: Colors.black, width: 1),
+      ),
+      elevation: elevation,
+      child: Padding(
+        padding: EdgeInsetsGeometry.fromLTRB(10, 5, 10, 10),
+        child: Column(
+          children: [
+            Align(
+              alignment: Alignment.topRight,
+              child: IconButton(icon: Icon(Icons.more_vert), onPressed: () {}),
+            ),
+
+            Align(
+              alignment: Alignment.bottomLeft,
+              child: Text('$label (Outlined)'),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _CardType3 extends StatelessWidget {
+  final String label;
+  final double elevation;
+
+  const _CardType3({required this.label, required this.elevation});
+
+  @override
+  Widget build(BuildContext context) {
+    return Card.filled(
+      elevation: elevation,
+      child: Padding(
+        padding: EdgeInsetsGeometry.fromLTRB(10, 5, 10, 10),
+        child: Column(
+          children: [
+            Align(
+              alignment: Alignment.topRight,
+              child: IconButton(icon: Icon(Icons.more_vert), onPressed: () {}),
+            ),
+
+            Align(
+              alignment: Alignment.bottomLeft,
+              child: Text('$label (filled)'),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _CardType4 extends StatelessWidget {
+  final String label;
+  final double elevation;
+
+  const _CardType4({required this.label, required this.elevation});
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      clipBehavior: Clip.hardEdge,
+      elevation: elevation,
+      child: Stack(
+        children: [
+          Image.network(
+            'https://picsum.photos/id/${elevation.toInt()}/600/350',
+            fit: BoxFit.cover,
+          ),
+
+          Align(
+            alignment: Alignment.topRight,
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.white,
+
+                borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(20),
+                ),
+              ),
+              child: IconButton(icon: Icon(Icons.more_vert), onPressed: () {}),
+            ),
+          ),
+        ],
       ),
     );
   }
