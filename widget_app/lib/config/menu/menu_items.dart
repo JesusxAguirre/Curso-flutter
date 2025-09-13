@@ -53,8 +53,8 @@ const appMenuItems = <MenuItem>[
   ),
 
   MenuItem(
-    title: 'Tutorial',
-    subtitle: 'Tutorial de flutter',
+    title: 'On boarding tutorial',
+    subtitle: 'Small tutorial to show how to use the app',
     link: '/tutorial',
     icon: Icons.auto_awesome_rounded,
   ),
